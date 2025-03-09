@@ -18,7 +18,7 @@
     "cdk": "cdk",
     "deploy": "npm run build && npm run cdk-deploy",
     "cdk-deploy": "cdk deploy --require-approval never",
-    "invalidate-cache": "aws cloudfront create-invalidation --distribution-id E3DHSQ7H7NVFS2 --paths \"/*\"",
+    "invalidate-cache": "aws cloudfront create-invalidation --distribution-id E2JDG9VIBM2SQ8 --paths \"/*\"",
     "deploy:full": "npm run deploy && npm run invalidate-cache"
   },
   "dependencies": {

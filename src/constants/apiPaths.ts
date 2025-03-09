@@ -1,9 +1,9 @@
 const API_PATHS = {
-  product: "https://kaplfyoyic.execute-api.eu-central-1.amazonaws.com/prod",
-  order: "https://kaplfyoyic.execute-api.eu-central-1.amazonaws.com/prod",
-  import: "https://kaplfyoyic.execute-api.eu-central-1.amazonaws.com/prod",
-  bff: "https://kaplfyoyic.execute-api.eu-central-1.amazonaws.com/prod",
-  cart: "https://kaplfyoyic.execute-api.eu-central-1.amazonaws.com/prod",
+  product: "https://vbwskwtvqb.execute-api.eu-central-1.amazonaws.com/prod",
+  order: "https://vbwskwtvqb.execute-api.eu-central-1.amazonaws.com/prod",
+  import: "https://vbwskwtvqb.execute-api.eu-central-1.amazonaws.com/prod",
+  bff: "https://vbwskwtvqb.execute-api.eu-central-1.amazonaws.com/prod",
+  cart: "https://vbwskwtvqb.execute-api.eu-central-1.amazonaws.com/prod",
 };
 
 export default API_PATHS;
