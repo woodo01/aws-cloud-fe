@@ -1,9 +1,9 @@
 import Typography from "@mui/material/Typography";
 import CartItems from "~/components/CartItems/CartItems";
-import { CartItem } from "~/models/CartItem";
+import { Cart } from "~/models/CartItem";
 
 type ReviewCartProps = {
-  items: CartItem[];
+  items: Cart[];
 };
 
 export default function ReviewCart({ items }: ReviewCartProps) {

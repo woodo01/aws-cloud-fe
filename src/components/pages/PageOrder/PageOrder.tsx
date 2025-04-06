@@ -5,7 +5,7 @@ import { useParams } from "react-router-dom";
 import PaperLayout from "~/components/PaperLayout/PaperLayout";
 import Typography from "@mui/material/Typography";
 import API_PATHS from "~/constants/apiPaths";
-import { CartItem } from "~/models/CartItem";
+import { Cart } from "~/models/CartItem";
 import { AvailableProduct } from "~/models/Product";
 import ReviewOrder from "~/components/pages/PageCart/components/ReviewOrder";
 import { OrderStatus, ORDER_STATUS_FLOW } from "~/constants/order";
@@ -23,6 +23,7 @@ import TableContainer from "@mui/material/TableContainer";
 import Box from "@mui/material/Box";
 import { useQueries } from "react-query";
 import { useInvalidateOrder, useUpdateOrderStatus } from "~/queries/orders";
+import { orders } from "~/mocks/data";
 
 type FormValues = {
   status: OrderStatus;
@@ -55,14 +56,14 @@ export default function PageOrder() {
   ] = results;
   const { mutateAsync: updateOrderStatus } = useUpdateOrderStatus();
   const invalidateOrder = useInvalidateOrder();
-  const cartItems: CartItem[] = React.useMemo(() => {
+  const cartItems: Cart[] = React.useMemo(() => {
     if (order && products) {
       return order.items.map((item: OrderItem) => {
         const product = products.find((p) => p.id === item.productId);
         if (!product) {
           throw new Error("Product not found");
         }
-        return { product, count: item.count };
+        return { product_id: item.productId, cart_id: '', count: item.count };
       });
     }
     return [];
@@ -70,7 +71,7 @@ export default function PageOrder() {
 
   if (isOrderLoading || isProductsLoading) return <p>loading...</p>;
 
-  const statusHistory = order?.statusHistory || [];
+  const statusHistory = orders[0].statusHistory;
 
   const lastStatusItem = statusHistory[statusHistory.length - 1];
 
@@ -79,7 +80,7 @@ export default function PageOrder() {
       <Typography component="h1" variant="h4" align="center">
         Manage order
       </Typography>
-      <ReviewOrder address={order.address} items={cartItems} />
+      <ReviewOrder address={order.delivery} items={cartItems} />
       <Typography variant="h6">Status:</Typography>
       <Typography variant="h6" color="primary">
         {lastStatusItem?.status.toUpperCase()}

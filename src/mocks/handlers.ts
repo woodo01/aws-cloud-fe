@@ -40,7 +40,7 @@ export const handlers = [
     return res(ctx.status(200));
   }),
   rest.get(`${API_PATHS.order}/order`, (req, res, ctx) => {
-    return res(ctx.status(200), ctx.delay(), ctx.json<Order[]>(orders));
+    return res(ctx.status(200), ctx.delay(), ctx.json(orders));
   }),
   rest.put(`${API_PATHS.order}/order`, (req, res, ctx) => {
     return res(ctx.status(200));

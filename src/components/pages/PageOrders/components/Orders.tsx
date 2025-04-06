@@ -34,12 +34,14 @@ export default function Orders() {
           {data?.map((order) => (
             <TableRow key={order.id}>
               <TableCell component="th" scope="row">
-                {order.address?.firstName} {order.address?.lastName}
+                {order.payment.email}
               </TableCell>
-              <TableCell align="right">{order.items.length}</TableCell>
-              <TableCell align="right">{order.address?.address}</TableCell>
+              <TableCell align="right">{order.items?.length}</TableCell>
               <TableCell align="right">
-                {order.statusHistory[order.statusHistory.length - 1].status}
+                {order.delivery?.zip}, {order.delivery?.city}, {order.delivery?.address}
+              </TableCell>
+              <TableCell align="right">
+                {order.status}
               </TableCell>
               <TableCell align="right">
                 <Button
