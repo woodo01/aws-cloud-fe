@@ -12,6 +12,7 @@ import Box from "@mui/material/Box";
 import { useCart, useInvalidateCart } from "~/queries/cart";
 import AddressForm from "~/components/pages/PageCart/components/AddressForm";
 import { useSubmitOrder } from "~/queries/orders";
+import { useAvailableProducts } from "~/queries/products";
 
 enum CartStep {
   ReviewCart,
@@ -44,12 +45,13 @@ const steps = ["Review your cart", "Shipping address", "Review your order"];
 
 export default function PageCart() {
   const { data = [] } = useCart();
+  const products = useAvailableProducts();
   const { mutate: submitOrder } = useSubmitOrder();
   const invalidateCart = useInvalidateCart();
   const [activeStep, setActiveStep] = React.useState<CartStep>(
     CartStep.ReviewCart
   );
-  const [address, setAddress] = useState<Address>(initialAddressValues);
+  const [address, setAddress] = useState(initialAddressValues);
 
   const isCartEmpty = data.length === 0;
 
@@ -58,15 +60,34 @@ export default function PageCart() {
       setActiveStep((step) => step + 1);
       return;
     }
+
+    const total = data.map(product => {
+      const productPrice = products.data?.find(prod => prod.id === product.product_id)?.price || 0;
+      return (productPrice * product.count)
+    }).reduce((sum, acc) => sum + acc, 0)
+
     const values = {
       items: data.map((i) => ({
-        productId: i.product.id,
+        productId: i.product_id,
         count: i.count,
       })),
-      address,
+      payment: {
+        amount: data.reduce((total, item) => item.count + total, 0),
+        method: "credit_card",
+        card_last4: "12324"
+      },
+      delivery: {
+        zip: address.zip,
+        city: address.city,
+        address: address.address
+      },
+      comments: address.comment,
+      status: "OPEN",
+      total,
+      id: data[0].cart_id
     };
 
-    submitOrder(values as Omit<Order, "id">, {
+    submitOrder(values as Order, {
       onSuccess: () => {
         setActiveStep(activeStep + 1);
         invalidateCart();

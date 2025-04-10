@@ -67,7 +67,7 @@ export const cart: CartItem[] = [
   },
 ];
 
-export const orders: Order[] = [
+export const orders = [
   {
     id: "1",
     address: {

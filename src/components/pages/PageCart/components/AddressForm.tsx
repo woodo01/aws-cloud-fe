@@ -25,19 +25,28 @@ const AddressForm = ({ initialValues, onBack, onSubmit }: AddressFormProps) => {
           Shipping address
         </Typography>
         <Grid container spacing={2}>
+          <Grid item xs={12}>
+            <Field
+              component={TextField}
+              name="email"
+              label="Email"
+              fullWidth
+              multiline
+            />
+          </Grid>
           <Grid item xs={12} sm={6}>
             <Field
               component={TextField}
-              name="lastName"
-              label="Last Name"
+              name="zip"
+              label="ZIP"
               fullWidth
             />
           </Grid>
           <Grid item xs={12} sm={6}>
             <Field
               component={TextField}
-              name="firstName"
-              label="First Name"
+              name="city"
+              label="City"
               fullWidth
             />
           </Grid>
@@ -45,7 +54,7 @@ const AddressForm = ({ initialValues, onBack, onSubmit }: AddressFormProps) => {
             <Field
               component={TextField}
               name="address"
-              label="Shipping address"
+              label="Address"
               fullWidth
               multiline
             />
